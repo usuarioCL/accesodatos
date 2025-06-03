@@ -117,51 +117,6 @@ php -f update.php
 
 **Resultado esperado:** Mensaje indicando cuántas filas fueron actualizadas
 
-## 📝 Uso de las Clases
-
-### Entidad Mascota
-
-```php
-require_once 'app/entities/Mascota.entidad.php';
-
-$mascota = new MascotaEntidad();
-$mascota->__SET('nombre', 'Firulais');
-$mascota->__SET('tipo', 'perro');
-$mascota->__SET('color', 'marrón');
-$mascota->__SET('genero', 'macho');
-$mascota->__SET('idpropietario', 1);
-```
-
-### Modelo Mascota (Operaciones CRUD)
-
-```php
-require_once 'app/models/Mascota.php';
-
-$modelo = new Mascota();
-
-// Crear
-$id = $modelo->create($mascotaEntidad);
-
-// Leer todas
-$mascotas = $modelo->getAll();
-
-// Leer por ID
-$mascota = $modelo->getById($id);
-
-// Actualizar
-$params = [
-    'idmascota' => 1,
-    'nombre' => 'Nuevo Nombre',
-    'tipo' => 'gato',
-    'color' => 'blanco',
-    'genero' => 'hembra',
-    'idpropietario' => 2
-];
-$filasAfectadas = $modelo->update($params);
-
-// Eliminar
-$filasEliminadas = $modelo->delete($id);
-```
 
 ## 🗄️ Esquema de Base de Datos
 
@@ -183,26 +138,6 @@ $filasEliminadas = $modelo->delete($id);
 | genero        | ENUM('macho', 'hembra')| Género de la mascota     |
 | vive          | ENUM('si', 'no')       | Estado de vida           |
 
-## 🔧 Solución de Problemas Comunes
-
-### Error: "Table doesn't exist"
-- Verifica que la base de datos `veterinaria` existe
-- Asegúrate de haber ejecutado el script `DB.sql`
-- Confirma que las tablas se llaman `mascotas` y `propietarios` (plural)
-
-### Error: "Access denied"
-- Verifica las credenciales en `app/config/Database.php`
-- Asegúrate de que MySQL esté ejecutándose en XAMPP
-
-### Error: "Class not found"
-- Verifica que las rutas en los `require_once` sean correctas
-- Ejecuta `composer install` si no se han instalado las dependencias
-
-### No se muestran resultados
-- Verifica que hay datos en las tablas
-- Agrega `print_r()` o `var_dump()` para depurar
-- Revisa los logs de errores de PHP
-
 ## 📚 Conceptos Implementados
 
 - **Patrón MVC**: Separación de entidades, modelos y pruebas
@@ -212,19 +147,6 @@ $filasEliminadas = $modelo->delete($id);
 - **Joins SQL**: Consultas relacionales entre tablas
 - **Manejo de Errores**: Captura de excepciones PDO
 
-## 🤝 Contribuciones
-
-Para contribuir al proyecto:
-
-1. Fork el repositorio
-2. Crea una rama para tu feature (`git checkout -b feature/nueva-funcionalidad`)
-3. Commit tus cambios (`git commit -am 'Agrega nueva funcionalidad'`)
-4. Push a la rama (`git push origin feature/nueva-funcionalidad`)
-5. Abre un Pull Request
-
-## 📄 Licencia
-
-Este proyecto es de uso educativo y está disponible bajo la licencia MIT.
 
 ---
 
