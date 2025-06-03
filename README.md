@@ -89,55 +89,6 @@ accesodatos/
 ├── composer.json               # Configuración de Composer
 └── README.md                   # Este archivo
 ```
-
-## 🧪 Pruebas del Sistema
-
-### 1. Probar la Conexión a Base de Datos
-
-```powershell
-cd C:\xampp\htdocs\accesodatos\app\test
-php -f getall.php
-```
-
-**Resultado esperado:** Lista de mascotas con sus propietarios
-
-### 2. Crear una Nueva Mascota
-
-```powershell
-php -f create.php
-```
-
-**Resultado esperado:** Mensaje de confirmación con el ID de la nueva mascota
-
-### 3. Actualizar una Mascota
-
-```powershell
-php -f update.php
-```
-
-**Resultado esperado:** Mensaje indicando cuántas filas fueron actualizadas
-
-
-## 🗄️ Esquema de Base de Datos
-
-### Tabla: propietarios
-| Campo         | Tipo        | Descripción              |
-|---------------|-------------|--------------------------|
-| idpropietario | INT (PK)    | ID único del propietario |
-| apellidos     | VARCHAR(40) | Apellidos del propietario|
-| nombres       | VARCHAR(40) | Nombres del propietario  |
-
-### Tabla: mascotas
-| Campo         | Tipo                    | Descripción              |
-|---------------|-------------------------|--------------------------|
-| idmascota     | INT (PK)               | ID único de la mascota   |
-| idpropietario | INT (FK)               | ID del propietario       |
-| tipo          | ENUM('perro', 'gato')  | Tipo de mascota          |
-| nombre        | VARCHAR(40)            | Nombre de la mascota     |
-| color         | VARCHAR(40)            | Color de la mascota      |
-| genero        | ENUM('macho', 'hembra')| Género de la mascota     |
-| vive          | ENUM('si', 'no')       | Estado de vida           |
-
 ## 📚 Conceptos Implementados
 
 - **Patrón MVC**: Separación de entidades, modelos y pruebas
@@ -148,7 +99,3 @@ php -f update.php
 - **Manejo de Errores**: Captura de excepciones PDO
 
 
----
-
-**Desarrollado para el curso de Acceso a Datos**  
-*Fecha: Junio 2025*
