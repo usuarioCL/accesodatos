@@ -134,3 +134,12 @@ private static $dbname = 'veterinaria';
 private static $username = 'root';
 private static $password = '';
 ```
+
+## 📚 Conceptos Implementados
+
+- **Patrón MVC**: Separación de entidades, modelos y pruebas
+- **PDO**: Uso de PHP Data Objects para acceso seguro a BD
+- **Prepared Statements**: Prevención de inyección SQL
+- **CRUD Operations**: Create, Read, Update, Delete
+- **Joins SQL**: Consultas relacionales entre tablas
+- **Manejo de Errores**: Captura de excepciones PDO
