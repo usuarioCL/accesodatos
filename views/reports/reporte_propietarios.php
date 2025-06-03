@@ -9,26 +9,25 @@
  * @author    Laurent MINGUET <webmaster@html2pdf.fr>
  * @copyright 2025 Laurent MINGUET
  */
-require_once dirname(__FILE__).'/../../vendor/autoload.php';
-require_once '../../app/models/Mascota.php';
+require_once __DIR__. '/../../vendor/autoload.php';
+require_once __DIR__. '/../../app/models/Propietario.php';
 
 use Spipu\Html2Pdf\Html2Pdf;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
 use Spipu\Html2Pdf\Exception\ExceptionFormatter;
 
 try {
-    $mascota = new Mascota();
-    $listaMascotas = $mascota->getAll();
+    $propietario = new Propietario();
+    $listaPropietarios = $propietario->getAll();
 
     ob_start();
-    include_once '../../public/css/estilos-reporte.html';
-    include_once '../contents/content-reporte3.php';
+    include_once '../contents/content-reporte4.php';
     $content = ob_get_clean();
 
-    $html2pdf = new Html2Pdf('P', 'A4', 'es', uniqid(), true, array(20, 15, 15, 15));
+    $html2pdf = new Html2Pdf('P', 'A4', 'es', true, 'UTF-8', array(20, 15, 15, 15));
     $html2pdf->pdf->SetDisplayMode('fullpage');
     $html2pdf->writeHTML($content);
-    $html2pdf->output('example.pdf');
+    $html2pdf->output('reporte_propietarios.pdf');
 } catch (Html2PdfException $e) {
     $html2pdf->clean();
 

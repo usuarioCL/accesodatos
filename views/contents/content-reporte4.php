@@ -34,43 +34,34 @@
 </style>
 
 <div class="reporte-titulo">
-  Reporte de Mascotas Registradas
+  Reporte de Propietarios Registrados
 </div>
 
 <table>
   <thead>
     <colgroup>
       <col style="width: 10%;">
-      <col style="width: 20%;">
-      <col style="width: 10%;">
-      <col style="width: 17%;">
-      <col style="width: 13%;">
-      <col style="width: 30%;">
+      <col style="width: 50%;">
+      <col style="width: 40%;">
     </colgroup>
     <tr>
       <th>ID</th>
       <th>Nombre</th>
-      <th>Tipo</th>
-      <th>Color</th>
-      <th>Género</th>
-      <th>Propietario</th>
+      <th>Apellido</th>
     </tr>
   </thead>
   <tbody>
-    <?php if (!empty($listaMascotas)): ?>
-      <?php foreach ($listaMascotas as $mascota): ?>
+    <?php if (!empty($listaPropietarios)): ?>
+      <?php foreach ($listaPropietarios as $Propietario): ?>
         <tr>
-          <td><?php echo $mascota['idmascota']; ?></td>
-          <td><?php echo htmlspecialchars($mascota['nombre']); ?></td>
-          <td><?php echo htmlspecialchars($mascota['tipo']); ?></td>
-          <td><?php echo htmlspecialchars($mascota['color']); ?></td>
-          <td><?php echo strtoupper($mascota['genero']); ?></td>
-          <td><?php echo htmlspecialchars($mascota['propietario']); ?></td>
+          <td><?php echo $Propietario['idpropietario']; ?></td>
+          <td><?php echo htmlspecialchars($Propietario['nombres']); ?></td>
+          <td><?php echo htmlspecialchars($Propietario['apellidos']); ?></td>
         </tr>
       <?php endforeach; ?>
     <?php else: ?>
       <tr>
-        <td colspan="6">No hay mascotas registradas</td>
+        <td colspan="6">No hay propietarios registrados</td>
       </tr>
     <?php endif; ?>
   </tbody>

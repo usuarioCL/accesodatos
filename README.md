@@ -1,232 +1,136 @@
-# Sistema de Gestión Veterinaria - Acceso a Datos
+# Sistema Veterinaria - Gestión de Mascotas
 
-Este proyecto implementa un sistema CRUD (Create, Read, Update, Delete) para la gestión de mascotas y propietarios en una clínica veterinaria, utilizando PHP con PDO y MariaDB/MySQL.
+Un sistema simple de gestión de mascotas y propietarios para clínicas veterinarias, desarrollado con PHP, PDO y MySQL.
 
-## 📋 Requisitos Previos
+## 🚀 Características
 
-- **XAMPP** (incluye Apache, PHP y MariaDB/MySQL)
-- **PHP 7.4** o superior
-- **Composer** (para gestión de dependencias)
-- **MariaDB/MySQL**
+- ✅ **CRUD completo** para mascotas y propietarios
+- ✅ **Generación de reportes PDF** con html2pdf
+- ✅ **Base de datos relacional** con MySQL/MariaDB
+- ✅ **Conexión segura** usando PDO y prepared statements
+- ✅ **Arquitectura limpia** con separación de capas
 
-## 🚀 Instalación y Configuración
+## 📋 Requisitos
 
-### 1. Clonar o Descargar el Proyecto
+- **XAMPP** (Apache + PHP + MySQL)
+- **PHP 7.4+**
+- **Composer**
 
-```bash
-# Si usas Git
-git clone [url-del-repositorio]
+## ⚡ Instalación Rápida
 
-# O descarga el proyecto en:
-C:\xampp\htdocs\accesodatos\
-```
+1. **Clona el proyecto en XAMPP**
 
-### 2. Instalar Dependencias
+   ```bash
+   cd C:\xampp\htdocs
+   git clone [tu-repo] accesodatos
+   ```
 
-Abre PowerShell en la carpeta del proyecto y ejecuta:
+2. **Instala dependencias**
 
-```powershell
-cd C:\xampp\htdocs\accesodatos
-composer install
-```
+   ```bash
+   cd accesodatos
+   composer install
+   ```
 
-### 3. Configurar la Base de Datos
+3. **Configura la base de datos**
+   - Inicia XAMPP (Apache + MySQL)
+   - Importa `app/database/DB.sql` en phpMyAdmin
+   - O ejecuta: `mysql -u root -p < app/database/DB.sql`
 
-#### 3.1 Iniciar XAMPP
-- Abre el **Panel de Control de XAMPP**
-- Inicia los servicios **Apache** y **MySQL**
-
-#### 3.2 Crear la Base de Datos
-1. Abre **phpMyAdmin** en tu navegador: `http://localhost/phpmyadmin`
-2. Importa el archivo SQL:
-   - Ve a la pestaña **"SQL"**
-   - Copia y pega el contenido del archivo `app/database/DB.sql`
-   - Ejecuta el script
-
-**O ejecuta desde línea de comandos:**
-
-```powershell
-# Desde el directorio del proyecto
-mysql -u root -p < app/database/DB.sql
-```
-
-#### 3.3 Verificar la Base de Datos
-La base de datos `veterinaria` debe contener:
-- Tabla `propietarios` con datos de ejemplo
-- Tabla `mascotas` con datos de ejemplo
-
-### 4. Configurar la Conexión a Base de Datos
-
-Verifica la configuración en `app/config/Database.php`:
-
-```php
-// Asegúrate de que los datos de conexión sean correctos
-private static $host = 'localhost';
-private static $dbname = 'veterinaria';
-private static $username = 'root';
-private static $password = ''; // O tu contraseña de MySQL
-```
-
-## 🏗️ Estructura del Proyecto
+## 🗂️ Estructura del Proyecto
 
 ```
 accesodatos/
 ├── app/
-│   ├── config/
-│   │   └── Database.php          # Configuración de conexión a BD
-│   ├── controllers/              # Controladores (futuro)
-│   ├── database/
-│   │   └── DB.sql               # Script de creación de BD
-│   ├── entities/
-│   │   └── Mascota.entidad.php  # Entidad Mascota
-│   ├── models/
-│   │   └── Mascota.php          # Modelo con operaciones CRUD
-│   └── test/
-│       ├── create.php           # Prueba de creación
-│       ├── getall.php           # Prueba de consulta
-│       └── update.php           # Prueba de actualización
-├── vendor/                      # Dependencias de Composer
-├── composer.json               # Configuración de Composer
-└── README.md                   # Este archivo
+│   ├── config/Database.php      # Conexión a BD
+│   ├── entities/               # Entidades de datos
+│   ├── models/                 # Lógica de negocio (CRUD)
+│   ├── database/DB.sql         # Script de BD
+│   └── test/                   # Pruebas básicas
+├── views/
+│   └── reports/                # Reportes PDF
+└── vendor/                     # Dependencias
 ```
 
-## 🧪 Pruebas del Sistema
+## 🧪 Pruebas Rápidas
 
-### 1. Probar la Conexión a Base de Datos
+```bash
+# Probar conexión y listado
+php app/test/getall.php
 
-```powershell
-cd C:\xampp\htdocs\accesodatos\app\test
-php -f getall.php
+# Crear nueva mascota
+php app/test/create.php
+
+# Actualizar mascota
+php app/test/update.php
 ```
 
-**Resultado esperado:** Lista de mascotas con sus propietarios
+## 💾 Base de Datos
 
-### 2. Crear una Nueva Mascota
+El sistema maneja dos tablas principales:
 
-```powershell
-php -f create.php
-```
+**`propietarios`**
 
-**Resultado esperado:** Mensaje de confirmación con el ID de la nueva mascota
+- `idpropietario` (PK)
+- `apellidos`, `nombres`
 
-### 3. Actualizar una Mascota
+**`mascotas`**
 
-```powershell
-php -f update.php
-```
+- `idmascota` (PK)
+- `idpropietario` (FK)
+- `tipo` (perro/gato)
+- `nombre`, `color`, `genero`
+- `vive` (si/no)
 
-**Resultado esperado:** Mensaje indicando cuántas filas fueron actualizadas
+## 📊 Reportes PDF
 
-## 📝 Uso de las Clases
+El sistema incluye generación de reportes en PDF usando la librería `spipu/html2pdf`:
 
-### Entidad Mascota
+- Reporte de mascotas
+- Reporte de propietarios
+- Formatos personalizables
+
+## 📸 Capturas de Pantalla
+
+### Reporte de Mascotas
+
+![Reporte 1](img/reporte1.png)
+
+### Reporte de Propietarios
+
+![Reporte 2](img/reporte2.png)
+
+## 🔧 Uso Básico
+
+### Crear una mascota
 
 ```php
 require_once 'app/entities/Mascota.entidad.php';
+require_once 'app/models/Mascota.php';
 
 $mascota = new MascotaEntidad();
 $mascota->__SET('nombre', 'Firulais');
 $mascota->__SET('tipo', 'perro');
-$mascota->__SET('color', 'marrón');
-$mascota->__SET('genero', 'macho');
 $mascota->__SET('idpropietario', 1);
-```
-
-### Modelo Mascota (Operaciones CRUD)
-
-```php
-require_once 'app/models/Mascota.php';
 
 $modelo = new Mascota();
-
-// Crear
-$id = $modelo->create($mascotaEntidad);
-
-// Leer todas
-$mascotas = $modelo->getAll();
-
-// Leer por ID
-$mascota = $modelo->getById($id);
-
-// Actualizar
-$params = [
-    'idmascota' => 1,
-    'nombre' => 'Nuevo Nombre',
-    'tipo' => 'gato',
-    'color' => 'blanco',
-    'genero' => 'hembra',
-    'idpropietario' => 2
-];
-$filasAfectadas = $modelo->update($params);
-
-// Eliminar
-$filasEliminadas = $modelo->delete($id);
+$id = $modelo->create($mascota);
 ```
 
-## 🗄️ Esquema de Base de Datos
+### Obtener todas las mascotas
 
-### Tabla: propietarios
-| Campo         | Tipo        | Descripción              |
-|---------------|-------------|--------------------------|
-| idpropietario | INT (PK)    | ID único del propietario |
-| apellidos     | VARCHAR(40) | Apellidos del propietario|
-| nombres       | VARCHAR(40) | Nombres del propietario  |
+```php
+$modelo = new Mascota();
+$mascotas = $modelo->getAll();
+```
 
-### Tabla: mascotas
-| Campo         | Tipo                    | Descripción              |
-|---------------|-------------------------|--------------------------|
-| idmascota     | INT (PK)               | ID único de la mascota   |
-| idpropietario | INT (FK)               | ID del propietario       |
-| tipo          | ENUM('perro', 'gato')  | Tipo de mascota          |
-| nombre        | VARCHAR(40)            | Nombre de la mascota     |
-| color         | VARCHAR(40)            | Color de la mascota      |
-| genero        | ENUM('macho', 'hembra')| Género de la mascota     |
-| vive          | ENUM('si', 'no')       | Estado de vida           |
+## 🛠️ Configuración
 
-## 🔧 Solución de Problemas Comunes
+Ajusta la conexión a BD en `app/config/Database.php`:
 
-### Error: "Table doesn't exist"
-- Verifica que la base de datos `veterinaria` existe
-- Asegúrate de haber ejecutado el script `DB.sql`
-- Confirma que las tablas se llaman `mascotas` y `propietarios` (plural)
-
-### Error: "Access denied"
-- Verifica las credenciales en `app/config/Database.php`
-- Asegúrate de que MySQL esté ejecutándose en XAMPP
-
-### Error: "Class not found"
-- Verifica que las rutas en los `require_once` sean correctas
-- Ejecuta `composer install` si no se han instalado las dependencias
-
-### No se muestran resultados
-- Verifica que hay datos en las tablas
-- Agrega `print_r()` o `var_dump()` para depurar
-- Revisa los logs de errores de PHP
-
-## 📚 Conceptos Implementados
-
-- **Patrón MVC**: Separación de entidades, modelos y pruebas
-- **PDO**: Uso de PHP Data Objects para acceso seguro a BD
-- **Prepared Statements**: Prevención de inyección SQL
-- **CRUD Operations**: Create, Read, Update, Delete
-- **Joins SQL**: Consultas relacionales entre tablas
-- **Manejo de Errores**: Captura de excepciones PDO
-
-## 🤝 Contribuciones
-
-Para contribuir al proyecto:
-
-1. Fork el repositorio
-2. Crea una rama para tu feature (`git checkout -b feature/nueva-funcionalidad`)
-3. Commit tus cambios (`git commit -am 'Agrega nueva funcionalidad'`)
-4. Push a la rama (`git push origin feature/nueva-funcionalidad`)
-5. Abre un Pull Request
-
-## 📄 Licencia
-
-Este proyecto es de uso educativo y está disponible bajo la licencia MIT.
-
----
-
-**Desarrollado para el curso de Acceso a Datos**  
-*Fecha: Junio 2025*
+```php
+private static $host = 'localhost';
+private static $dbname = 'veterinaria';
+private static $username = 'root';
+private static $password = '';
+```

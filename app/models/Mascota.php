@@ -1,16 +1,20 @@
 <?php
-require_once '../config/Database.php';
-require_once '../entities/Mascota.entidad.php';
+require_once __DIR__ . '/../config/Database.php';
+require_once __DIR__ . '/../entities/Mascota.entidad.php';
 
 /**
  * Esta clse contiene la logica para interactuar con la base de datos
  * para las operaciones CRUD de la entidad Mascota.
  */
-class Mascota{
+class Mascota
+{
   private $pdo = null;
-  public function __construct(){
+  public function __construct()
+  {
     $this->pdo = Database::getConexion();
-  }  public function create(MascotaEntidad $entidad): int{
+  }
+  public function create(MascotaEntidad $entidad): int
+  {
     $sql = "INSERT INTO mascotas (idpropietario, tipo, nombre, color, genero) VALUES (?, ?, ?, ?, ?)";
     $query = $this->pdo->prepare($sql);
     $query->execute([
@@ -22,18 +26,19 @@ class Mascota{
     ]);
     return $this->pdo->lastInsertId();
   }
-  public function getAll(): array {
-    $sql= "
+  public function getAll(): array
+  {
+    $sql = "
     SELECT 
       MA.idmascota,
       MA.tipo,
       MA.nombre,
       MA.color,
       MA.genero,
-      CONCAT(PR.apellidos,' ',PR.nombres) AS propietario
+      CONCAT(PR.nombres,' ',PR.apellidos) AS propietario
       FROM mascotas MA
       INNER JOIN propietarios PR ON MA.idpropietario = PR.idpropietario
-      ORDER BY MA.nombre
+      ORDER BY MA.idmascota ASC
     ";
     $query = $this->pdo->prepare($sql);
     $query->execute();
@@ -43,12 +48,14 @@ class Mascota{
     //FETCH_CLASS devuelve un objeto de una clase especifica
     return $query->fetchAll(PDO::FETCH_ASSOC);
   }
-
-  public function getById($id): array{
+  
+  public function getById($id): array
+  {
     return [];
   }
 
-  public function delete($id){
+  public function delete($id)
+  {
     return 0;
   }
 
@@ -57,7 +64,8 @@ class Mascota{
    * @param mixed $params Arreglo que contiene los campos requeridos 
    * @return int Numero de filas afectadas por la actualización.
    */
-  public function update($params){
+  public function update($params)
+  {
     $sql = "
     UPDATE mascotas SET
     idpropietario = ?,
@@ -80,4 +88,3 @@ class Mascota{
     return $query->rowCount();
   }
 }
-
